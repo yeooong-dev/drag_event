@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            list-style: none;
+            margin: 0; padding: 0;
+            
+        }
+        .list{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .item{
+            width: 300px; height: 300px;
+            background: rgb(242, 238, 131);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: bold;
+            color: rgb(90, 90, 90);
+            margin: 100px 30px auto;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li class="item" draggable="true">P</li>
+        <li class="item" draggable="true">P</li>
+        <li class="item" draggable="true">A</li>
+        <li class="item" draggable="true">E</li>
+        <li class="item" draggable="true">L</li>
+    </ul>
+    <script>
+        const list = document.querySelector(".list");
+        
+        let piked = null;
+        let pickedIndex = null;
+
+        list.addEventListener("dragstart",(e) => {
+            const obj = e.target;
+
+            piked = obj
+            pickedIndex = [...obj.parentNode.children].indexOf(obj)
+          
+        })
+        
+        list.addEventListener("dragover", (e) => {
+            e.preventDefault()
+        })
+
+        list.addEventListener("drop", (e) => {
+            const obj = e.target;
+            const index = [...obj.parentNode.children].indexOf(obj)
+
+            index > pickedIndex ?  obj.after(piked) : obj.before(piked)
+        })
+    </script>
+</body>
+</html>
